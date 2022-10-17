@@ -23,6 +23,8 @@ public class MioThread extends Thread {
         for (;;) {
             String recv = in.readLine();
             String modifiedRecv = recv.toUpperCase();
+            if (modifiedRecv.equals("FINE"))
+            this.client.close();
             out.writeBytes(modifiedRecv + '\n');
         }
     }
