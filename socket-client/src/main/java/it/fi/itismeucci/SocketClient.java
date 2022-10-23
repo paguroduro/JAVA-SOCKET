@@ -22,13 +22,22 @@ public class SocketClient
     
     public void send() throws IOException
     {
-        while(!this.userString.equals("fine")){
-            System.out.print("Inserisci la stringa da trasmettere al server: ");
+        for(;;){
+            System.out.print("Inserisci la stringa da trasmettere al server" + '\n');
             this.userString = this.keyboard.next();
+
+            if (userString.equals("FINE")){
+                socket.close();
+                return;
+            }
+
             out.writeBytes(userString + '\n');
             serverString = in.readLine();
-            System.out.print("Risposta dal server: " + serverString + "\n");
+            if(userString.equals("SPEGNI")){
+                return;
+            }
+            System.out.print("Risposta dal server: " + serverString + '\n');
         }
-        socket.close();
     }
 }
+
